@@ -1,8 +1,8 @@
 <template>
   <div>
-      <div v-if="loading" class="loader">
-        <img src="@/assets/Dual-ball.svg" alt="dual ball">
-      </div>
+    <div v-if="loading" class="loader">
+      <img src="@/assets/Dual-ball.svg" alt="dual ball">
+    </div>
     <div class="edit-smoothie container" v-if="smoothie">
       <div class="edit-smoothie">
         <p>Edit smoothie {{ smoothie.title }}</p>
@@ -20,6 +20,9 @@
         <div class="field add-ingredient">
           <label for="add-ingredient">Press tab to add ingredient</label>
           <input type="text" name='add-ingredient' @keydown.tab.prevent="addIng" v-model="another">
+        </div>
+        <div v-if="updating" class="loader">
+          <img src="@/assets/Dual-ball.svg" alt="dual ball">
         </div>
         <div class="field center-align">
           <p v-if="feedback" class="red-text">{{ feedback }}</p>
@@ -42,12 +45,19 @@ export default {
       another: null,
       feedback: null,
       loading: true,
+      updating: false,
     };
   },
   methods: {
     editSmoothie() {
       console.log(this.smoothie.title, this.smoothie.ingredients);
+      console.log('sent');
+      if (this.another) {
+        this.smoothie.ingredients.push(this.another);
+        this.another = null;
+      }
       if (this.smoothie.title) {
+        this.updating = true;
         this.feeback = null;
         this.smoothie.slug = slugify(this.smoothie.title, {
           replacement: '-',
@@ -60,6 +70,7 @@ export default {
           slug: this.smoothie.slug,
         }).then(() => {
           this.$router.push({ name: 'Index' });
+          this.updating = false;
         })
           .catch((err) => console.log(err));
       } else {
@@ -98,7 +109,6 @@ export default {
 <style lang="scss">
 div {
     .loader {
-    grid-column: 1/4;
     margin: 0 auto;
     width: 90px;
     height: 70px;

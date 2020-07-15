@@ -93,9 +93,10 @@ div.index {
   .content {
     .ingredients {
     margin: 30px auto;
-    display: flex;
-    justify-content: left;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
+    width: 100%;
     }
     ul {
       span {
