@@ -113,17 +113,22 @@ div {
       text-align: center;
       font-size: 2em;
     }
-    .field {
-      margin: 20px auto;
-      position: relative;
+  }
+  .field {
+    margin: 20px auto;
+    position: relative;
+    &.center-align {
+      p {
+        font-size: 14px;
+      }
     }
-    .delete {
-      color: red;
-      position: absolute;
-      bottom: 20px;
-      right: 10px;
-      cursor: pointer;
-    }
+  }
+  .delete {
+    color: red;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    cursor: pointer;
   }
 }
 
